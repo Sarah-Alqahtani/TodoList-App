@@ -26,6 +26,7 @@ class TableViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         fetchTodos()
         tableView.reloadData()
+  
     }
         
 
@@ -38,6 +39,9 @@ class TableViewController: UITableViewController {
         override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
                let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
+         
+
+                     
             let ToDolist=ArrNot[indexPath.row]
             cell.titlelbl.text=ToDolist.title
             cell.notelbl.text=ToDolist.detalis
@@ -46,24 +50,21 @@ class TableViewController: UITableViewController {
             let selectedDate = dateFormatter.string(from: ToDolist.date!)
             cell.datelbl.text=selectedDate
             
-            if ToDolist.cheack{
-                        cell.accessoryType = UITableViewCell.AccessoryType.checkmark
+            if ToDolist.cheack == true {
+                        cell.accessoryType = .checkmark
+                    }else {
+                        cell.accessoryType = .none
                     }
-
                     return cell
         
         }
 
    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let ToDolist = ArrNot[indexPath.row]
-       ToDolist.cheack = !ToDolist.cheack
-       if let cell = tableView.cellForRow(at: indexPath) {
-           tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCell.AccessoryType.checkmark
-           
-       }else{
-           tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCell.AccessoryType.none
-           
-       }
+       let todolist = ArrNot[indexPath.row]
+              todolist.cheack = true
+              print(todolist)
+              
+              tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
        saveContext()
        tableView.deselectRow(at: indexPath, animated: true)
    }
@@ -78,3 +79,8 @@ class TableViewController: UITableViewController {
 
 }
 
+extension TableViewController : UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 300, height: 900)
+    }
+}

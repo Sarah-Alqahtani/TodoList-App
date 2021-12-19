@@ -13,7 +13,7 @@ class SecondViewController: UIViewController {
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     let saveContext = (UIApplication.shared.delegate as! AppDelegate).saveContext
     
-    @IBOutlet weak var editTextDetels: UITextView!
+    @IBOutlet weak var editTextDetels: UITextField!
     @IBOutlet weak var editTextTitle: UITextField!
     @IBOutlet weak var DatePicker: UIDatePicker!
    
